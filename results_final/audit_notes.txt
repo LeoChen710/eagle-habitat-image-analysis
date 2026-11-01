@@ -20,8 +20,8 @@ Absolute difference: [0.982996796230769]
 
 Visual reality: ROI is mostly calm water with strong shoreline reflections, plus brown leafless vegetation and a muddy bank in the background.
 Likely failure mode: REFLECTION
-Explanation: Classical likely under-counted water because the reflected water surface is muted and mixed with brown shoreline colors, so it does not strongly match the water color thresholds. DL likely counted most of the ROI as water because the large smooth reflective surface is semantically consistent with water, even though shoreline reflections make the boundary ambiguous.
-More plausible output: Unclear
+Explanation: Classical estimated approximately 0.01% water despite water occupying most of the ROI. DL estimated 98.31%, which is more plausible for this scene. Mask inspection is needed to assess whether DL incorrectly included shoreline vegetation or the eagle as water.
+More plausible output: DL
 Confidence (0–2): 1
 
 -------------------------------------------------------------------------------
@@ -30,9 +30,9 @@ ENTRY 02
 File: [photos/converted/DSC09671.jpg]
 Year: [2019]
 Metric: [vegetation_frac]
-Classical value: [0.959658681556196]
-DL value: [0.0000]
-Absolute difference: [0.959658681556196]
+Classical value: [0.002467579250720461]
+DL value: [0.2652637475082514]
+Absolute difference: [0.26279616825753094]
 
 Visual reality: ROI is dominated by bare tree branches/trunks against a clear blue sky, with no visible water and only small patches of snow/ice on bark.
 Likely failure mode: BROWN_VEG
@@ -44,11 +44,11 @@ Confidence (0–2): 2
 
 ENTRY 03
 File: [photos/converted/_DSC0183.jpg]
-Year: [2025]
+Year: [2024]
 Metric: [vegetation_frac]
-Classical value: [0.949159544159544]
-DL value: [0.0000]
-Absolute difference: [0.949159544159544]
+Classical value: [0.001094017094017094]
+DL value: [0.08637321937321937]
+Absolute difference: [0.08527920227920228]
 
 Visual reality: ROI is almost entirely clear blue sky with a single leafless tree trunk/branches and the eagle perched near the top; no water, snow, or ground is visible.
 Likely failure mode: SKY_BIAS
@@ -62,9 +62,9 @@ ENTRY 04
 File: [photos/converted/DSC06026.jpg]
 Year: [2025]
 Metric: [vegetation_frac]
-Classical value: [0.942948717948718]
-DL value: [0.0000]
-Absolute difference: [0.942948717948718]
+Classical value: [0.006225071225071225]
+DL value: [0.08984045584045584]
+Absolute difference: [0.08361538461538462]
 
 Visual reality: ROI is almost entirely clear blue sky with a few leafless branches and the eagle perched; no water, snow/ice, or ground is visible.
 Likely failure mode: SKY_BIAS
@@ -82,11 +82,10 @@ Classical value: [0.939846001440922]
 DL value: [0.0000]
 Absolute difference: [0.939846001440922]
 
-Visual reality: ROI is dominated by open blue sky with a flying eagle, and the lower edge includes urban structures/cranes; no visible water or vegetation is present.
-Likely failure mode: SKY_BIAS
-Explanation: Classical likely produced very low water and vegetation values because almost all pixels are sky, which is appropriate for this scene. DL may over-count non-target classes or create small false positives near the building/crane edges because the scene is dominated by sky and contains urban objects that do not relate to the habitat metrics.
-More plausible output: Classical
-Confidence (0–2): 2
+Visual reality: The ROI contains blurred, leafless trunks and branches against a bright, snowy background, with part of the eagle in the foreground. No open water is visible.
+Explanation: Classical estimated 0.21% vegetation, which appears to undercount the visible trunks and branches. DL estimated 99.34% vegetation, which appears excessive given the visible snow and eagle. The photograph alone does not establish which estimate is closer. Segmentation masks are needed to identify the specific classification errors.
+More plausible output: Unclear
+Confidence (0–2): 1
 
 -------------------------------------------------------------------------------
 
@@ -110,14 +109,13 @@ ENTRY 07
 File: [photos/converted/DSC08669.jpg]
 Year: [2019]
 Metric: [water_frac]
-Classical value: [0.0008456412103746]
-DL value: [0.95051096165158]
-Absolute difference: [0.949665320441205]
+Classical value: [0.4020407060518732]
+DL value: [0.0000]
+Absolute difference: [0.4020407060518732]
 
-Visual reality: ROI contains mostly frozen/partially frozen water in the foreground with a snowy/rocky shoreline and visible built structures (buildings) in the background; vegetation is minimal and leafless.
-Likely failure mode: SHORELINE
-Explanation: Classical likely under-counted water because frozen/partially frozen water and snow-covered shoreline are bright, gray, and low-saturation, so they do not match the water threshold consistently. DL likely counted much of the frozen surface as water because semantically it belongs to the river/lake surface, even though ice and shoreline details make the class boundary ambiguous.
-More plausible output: Unclear
+Visual reality: The ROI contains a broad river surface, a snow-covered rocky bank, and an eagle flying above the water. The photograph does not establish that the river is frozen.
+Explanation: Classical estimated 40.20% water, while DL estimated 0%. Because water occupies a substantial portion of the ROI, the classical estimate is more plausible. This does not establish that 40.20% is accurate. Segmentation masks are needed to identify the misclassified regions and investigate why DL reported no water.
+More plausible output: Classical
 Confidence (0–2): 1
 
 -------------------------------------------------------------------------------
@@ -125,15 +123,15 @@ Confidence (0–2): 1
 ENTRY 08
 File: [photos/converted/_DSC1035.jpg]
 Year: [2024]
-Metric: [water_frac]
-Classical value: [0.875291305916305]
-DL value: [0.0000]
-Absolute difference: [0.875291305916305]
+Metric: [vegetation_frac]
+Classical value: [0.8752913059163059]
+DL value: [0.0]
+Absolute difference: [0.8752913059163059]
 
-Visual reality: ROI is mostly calm water with a mirrored shoreline reflection, and the background is leafless/brown vegetation and muddy/rocky bank; no snow is visible.
+Visual reality: The ROI is predominantly water with strong tree reflections. A narrow strip of shoreline and part of the eagle are also included.
 Likely failure mode: REFLECTION
-Explanation: Classical may over-count water because large reflective regions and dark mirrored tree shapes can still satisfy the water color/brightness rules, causing leakage into reflection areas. DL may under/over-count water because it must decide whether reflected trees belong to “water” or “vegetation/ground,” and semantic models often handle reflections inconsistently.
-More plausible output: Unclear
+Explanation: Classical estimated 87.53% vegetation, although most of the ROI is water. Reflected trees may have contributed to this overestimate; the segmentation mask is needed to confirm that explanation. DL’s 0% vegetation estimate is more plausible, although it may miss some shoreline vegetation.
+More plausible output: DL
 Confidence (0–2): 1
 
 -------------------------------------------------------------------------------
